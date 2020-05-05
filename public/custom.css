@@ -1,0 +1,17 @@
+@import url("asset/dist/css/adminlte.min.css");
+@import url("asset/plugins/daterangepicker/daterangepicker.css");
+@import url("asset/plugins/jqvmap/jqvmap.min.css");
+@import url("asset/plugins/overlayScrollbars/css/OverlayScrollbars.min.css");
+/* @import url("asset/plugins/datatables-bs4/css/dataTables.bootstrap4.css"); */
+
+.nav-treeview{
+    /* transition: padding .3s ease-in-out !important; */
+    padding-left: 1rem !important;
+}
+.fli{
+    float: left !important;
+}
+/* .table{
+    width: 100% important;
+} */
+th.dt-center, td.dt-center { text-align: center; }

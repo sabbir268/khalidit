@@ -1,0 +1,4 @@
+.nav-sidebar.nav-child-indent .nav-treeview{
+    transition: padding .3s ease-in-out !important;
+    padding-left: 1rem !important;
+}
