@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWorkersTable extends Migration
+class CreateSheetWorkersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateWorkersTable extends Migration
      */
     public function up()
     {
-        Schema::create('workers', function (Blueprint $table) {
+        Schema::create('sheet_workers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('code');
-            $table->string('price');
-            $table->string('user_modified');
-            $table->integer('status');
+            $table->unsignedBigInteger('sheet_id');
+            $table->unsignedBigInteger('user_id');
+            $table->float('rate',5,2);
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class CreateWorkersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('workers');
+        Schema::dropIfExists('sheet_workers');
     }
 }

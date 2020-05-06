@@ -19,23 +19,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
+/** Worker routes */
+Route::resource('user', 'UserController')->middleware('role:admin');
 
-Route::get('/home', 'HomeController@index')->name('home');
+/** sheet routes */
+Route::resource('sheet', 'SheetController')->middleware('role:admin');
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::resource('master/sheet','master\SheetController');
-
-Route::resource('master/worker','master\WorkerController');
-
-Route::get('master/datatable', 'Master\WorkerController@datatable')->name('worker/datatable');
-
-
-
+Route::post('/worker-to-sheet/add', 'SheetWorkerController@store')->name('add.worker')->middleware('role:admin');

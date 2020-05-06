@@ -174,9 +174,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Yajra\Oci8\Oci8ServiceProvider::class,
+        //Yajra\Oci8\Oci8ServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
-        //Yajra\DataTables\DataqTablesServiceProvider::class,
+        // Yajra\DataTables\DataqTablesServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
+        Yoeunes\Toastr\ToastrServiceProvider::class,
 
     ],
 

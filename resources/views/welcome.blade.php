@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Khalid IT</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -81,15 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Inventory Management System
-                </div>
-
-                <div class="links">
-                    <p>
-                    Md Mohibbur Rahman <br>
-                    Sharmin Sume <br>
-                    Rumi khatun <br>
-                    </p>
+                    Welcome to Khalid IT Lead Manager Application
                 </div>
             </div>
         </div>
