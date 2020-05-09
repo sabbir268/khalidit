@@ -41,12 +41,21 @@ class SheetWorkerController extends Controller
             'rate'     => 'required|numeric',
         ]);
 
-        $sheetWorker = SheetWorker::create($data);
-        if($sheetWorker){
-            return 'Worker added';
-        }else{
-            return 'Something went wrong';
+        if (SheetWorker::where('sheet_id', $request->sheet_id)->where('user_id', $request->user_id)->count() != 0) {
+            return ['status' => 'error', 'message' => 'Worker already added in this sheet'];
         }
+
+        $sheetWorker = SheetWorker::create($data);
+        if ($sheetWorker) {
+            return ['status' => 'success', 'message' => 'Worker added successfully!'];
+        } else {
+            return ['status' => 'error', 'message' => 'Something went wrong'];
+        }
+    }
+
+    public function getWorkers($sheet_id)
+    {
+        return $workers = SheetWorker::where('sheet_id', $sheet_id)->get();
     }
 
     /**
@@ -99,7 +108,5 @@ class SheetWorkerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        
-    }
+    { }
 }

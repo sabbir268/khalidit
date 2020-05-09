@@ -21,6 +21,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @toastr_css
 </head>
 <body>
     <div id="app">
@@ -77,8 +78,16 @@
 
         <main class="py-4">
             @yield('content')
+
+            @foreach ($errors->toArray() as $error)
+            @php
+            toastr()->error($error[0])
+            @endphp
+            @endforeach
         </main>
     </div>
 </body>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+@toastr_js
+@toastr_render
 </html>

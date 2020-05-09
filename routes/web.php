@@ -18,11 +18,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/register-member', 'WorkerController@store')->name('member.register');
 
 /** Worker routes */
 Route::resource('user', 'UserController')->middleware('role:admin');
+Route::post('/user/status-change', 'UserController@statusChange')->name('status.change')->middleware('role:admin');
 
 /** sheet routes */
 Route::resource('sheet', 'SheetController')->middleware('role:admin');
 
 Route::post('/worker-to-sheet/add', 'SheetWorkerController@store')->name('add.worker')->middleware('role:admin');
+Route::get('/worker-to-sheet/{sheet_id}', 'SheetWorkerController@getWorkers')->name('get.worker')->middleware('role:admin');

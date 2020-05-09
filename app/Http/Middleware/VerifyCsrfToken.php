@@ -19,6 +19,6 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        ['/worker-to-sheet/add']
+        '/worker-to-sheet/add', '/user/status-change'
     ];
 }

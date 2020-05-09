@@ -64,10 +64,8 @@
                     <td>{{$sheet->target}}</td>
                     <td>{{$sheet->sheetWorkers->count()}}</td>
                     <td class="text-center">
-                      {{$sheet->sheetWorkers->count()}}
-                      <br>
                       <button class="btn btn-sm btn-success addworker" data-id="{{$sheet->id}}"
-                        data-rate="{{$sheet->rate}}">Add Workers</button>
+                        data-rate="{{$sheet->rate}}">Workers</button>
                     </td>
                     <td>{{$sheet->status}}</td>
                     <td>{{$sheet->created_at}}</td>
@@ -104,19 +102,32 @@
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add workers to sheet</h5>
+        <button type="button" class="close worker-modal-close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
+        <div class="row" id="workerShow">
+          <table class="table table-sm table-stripped">
+            <tr>
+              <th>Sl.</th>
+              <th>Code</th>
+              <th>Name</th>
+              <th>Rate</th>
+            </tr>
+            <tbody id="workerDataView">
+
+            </tbody>
+          </table>
+        </div>
 
         <form action="#" id="addWorkerToSheetForm">
           <div class="row">
             <div class="form-group col-md-4">
               <label for="">Name</label>
               <br>
-              <select name="name" class="select-2 form-control" id="name">
+              <select name="user_id" class="select-2 form-control" id="name">
                 <option value="">Select Worker..</option>
                 @foreach ($workers as $worker)
                 <option value="{{$worker->id}}">{{$worker->name}}({{$worker->code}})</option>
@@ -139,7 +150,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary worker-modal-close" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
@@ -176,22 +187,55 @@
     $rate = $(this).data('rate');
     $('#sheet_id').val($sheetId);
     $('#rate').val($rate);
+    getWorker($sheetId);
     $('#addWorkersModal').modal('show');
   });
 
   $('#addWorkerToSheetForm').submit(function(e){
     e.preventDefault();
+    $sheetId = $('#sheet_id').val();
     if($('#sheet_id').val() == '' || $('#rate').val() == ''){
       alert('Worker Name or Rate feild is blank!')
     }else{
       $.ajax({
-        url: "demo_test.txt",
-        type: 'POST', 
+        url: "{{route('add.worker')}}",
+        type: 'POST',
+        data: $(this).serialize(),
         success: function(result){
-            $("#div1").html(result);
+            if(result.status == "error"){
+              alert(result.message)
+            }else{
+              getWorker($sheetId);
+              alert(result.message)
+            }
           }
       });
     }
+  });
+
+  function getWorker(sheetId){
+    $('#workerDataView').html('');
+    $.ajax({
+        url: "{{url('/')}}/worker-to-sheet/"+sheetId,
+        type: 'GET',
+        success: function(result){
+            // console.log(result)
+            $data = result;
+            for(var i = 0; $data.length > i; i++){
+              $html = `<tr>
+                        <td>${i+1}</td>
+                        <td>${$data[i].name}</td>
+                        <td>${$data[i].code}</td>
+                        <td>${$data[i].rate}</td>
+                      </tr>`;
+             $('#workerDataView').append($html);
+            }
+          }
+      });
+  }
+
+  $('.worker-modal-close').click(function(){
+    location.reload();
   });
 
   $('.select-2').select2();

@@ -45,9 +45,9 @@ class UserController extends Controller
         ]);
         $data['password'] = $request->has('password') ? bcrypt($request->password) : bcrypt(123789);
         $data['status'] = 1;
-        
+
         $user = User::create($data);
-        
+
         if ($user) {
 
             if ($request->has('type') && $request->type == 'admin') {
@@ -106,5 +106,20 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function statusChange(Request $request)
+    {
+        $user = User::find($request->user_id);
+        if (($user->code == '' || $user->code == null) && $request->has('code')) {
+            $user->code = $request->code;
+        }
+        $user->status = $request->status;
+
+        if ($user->save()) {
+            return "success";
+        } else {
+            return "error";
+        }
     }
 }

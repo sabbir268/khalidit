@@ -31,6 +31,9 @@
             </p>
           </a>
         </li>
+        @if (auth()->user()->hasRole('admin'))
+
+
         <li class="nav-item {{ (request()->is('user*')) ||  (request()->is('user/*')) ? 'menu-open' : '' }}">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-user"></i>
@@ -54,8 +57,7 @@
             </li>
           </ul>
         </li>
-        <li
-          class="nav-item has-treeview {{ request()->is('sheet*') || request()->is('sheet/*') ? 'menu-open' : '' }}">
+        <li class="nav-item has-treeview {{ request()->is('sheet*') || request()->is('sheet/*') ? 'menu-open' : '' }}">
           <a href="#" class="nav-link {{ request()->is('sheet*') || request()->is('sheet/*') ? 'active' : '' }}">
             <i class="nav-icon fas fa-file-excel"></i>
             <p>
@@ -72,7 +74,8 @@
               </a>
             </li>
             <li class="nav-item">
-              <a a href="{{route('sheet.create')}}" class="nav-link {{ request()->is('sheet/create') ? 'active' : '' }}">
+              <a a href="{{route('sheet.create')}}"
+                class="nav-link {{ request()->is('sheet/create') ? 'active' : '' }}">
                 <i class="fas fa-plus-circle nav-icon"></i>
                 <p>Add Sheet</p>
               </a>
@@ -85,37 +88,7 @@
             </li>
           </ul>
         </li>
-        {{-- <li
-          class="nav-item has-treeview {{ (request()->is('master/worker','master/worker/create')) ? 'menu-open' : '' }}">
-          <a href="#" class="nav-link {{ (request()->is('master/worker','master/worker/create')) ? 'active' : '' }}">
-            <i class="nav-icon fas fa-pray"></i>
-            <p>
-              All Works
-              <i class="fas fa-angle-left right"></i>
-              {{-- <span class="badge badge-info right">6</span> --}}
-            </p>
-          </a>
-          <ul class="nav nav-treeview ">
-            <li class="nav-item">
-              <a href="" class="nav-link {{ (request()->is('master/worker')) ? 'active' : '' }}">
-                <i class="fas fa-table nav-icon"></i>
-                <p>Work List</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a a href="" class="nav-link {{ (request()->is('master/worker/create')) ? 'active' : '' }}">
-                <i class="fas fa-plus-circle nav-icon"></i>
-                <p>Add Work</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="pages/layout/fixed-sidebar.html" class="nav-link">
-                <i class="fas fa-briefcase nav-icon"></i>
-                <p>Manage Work</p>
-              </a>
-            </li>
-          </ul>
-        </li> --}}
+        @endif
       </ul>
     </nav>
     <!-- /.sidebar-menu -->
