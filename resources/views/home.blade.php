@@ -98,7 +98,8 @@
       @if(auth()->user()->hasRole('worker'))
       @if (auth()->user()->status == 0)
       <div class="alert alert-warning text-center" role="alert">
-        Your account is not approved yet. Please wait for approval and return back again!
+        Your account is not approved yet. Please wait for approval and return back again! <br>
+        <a href="{{route('worker.show', auth()->user()->worker->id)}}">View</a> or <a href="{{route('worker.edit', auth()->user()->worker->id)}}">Edit</a> your submission 
       </div>
       @else
       <div class="row">

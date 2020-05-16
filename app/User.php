@@ -42,4 +42,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\SheetWorker');
     }
+
+    public function worker()
+    {
+        return $this->hasOne('App\Worker');
+    }
 }

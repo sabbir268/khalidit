@@ -129,7 +129,7 @@
                   </th>
                   <td>
                     <div class="btn-group">
-                      <a href="#" class="btn btn-sm btn-success">View</a>
+                      <a href="{{route('worker.show',$worker->worker->id)}}" class="btn btn-sm btn-success">View</a>
                       <a href="#" class="btn btn-sm btn-info">Edit</a>
                       <a href="#" class="btn btn-sm btn-danger">Delete</a>
                     </div>

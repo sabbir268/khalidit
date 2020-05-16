@@ -11,6 +11,7 @@
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -27,6 +28,7 @@ Route::post('/user/status-change', 'UserController@statusChange')->name('status.
 /** sheet routes */
 Route::resource('sheet', 'SheetController')->middleware('role:admin');
 Route::resource('lead-track', 'LeadTrackerController')->middleware('auth');
+Route::resource('worker', 'WorkerController')->middleware('auth');
 
 Route::post('/worker-to-sheet/add', 'SheetWorkerController@store')->name('add.worker')->middleware('role:admin');
 Route::get('/worker-to-sheet/{sheet_id}', 'SheetWorkerController@getWorkers')->name('get.worker')->middleware('role:admin');
