@@ -55,7 +55,10 @@ class WorkerController extends Controller
         ]);
         $data['password'] = bcrypt($request->password);
         if ($request->hasFile('doc')) {
-            $data['doc'] = $request->file('doc')->store('/public/documents');
+            $data['doc'] = $request->file('doc')->store('/documents', 'public');
+        }
+        if ($request->hasFile('doc')) {
+            $data['photo'] = $request->file('photo')->store('/documents', 'public');
         }
 
         if ($user = User::create($data)) {

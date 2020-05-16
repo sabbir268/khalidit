@@ -17,7 +17,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('member.register') }}">
+                    <form method="POST" action="{{ route('member.register') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="form-group col-md-6">
@@ -62,14 +62,12 @@
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label for="gd_phone"
-                                    class=" text-md-right">{{ __('Guardian Phone Number') }}</label>
+                                <label for="gd_phone" class=" text-md-right">{{ __('Guardian Phone Number') }}</label>
 
 
                                 <input id="gd_phone" type="text"
-                                    class="form-control @error('gd_phone') is-invalid @enderror"
-                                    name="gd_phone" value="{{ old('gd_phone') }}" required
-                                    autocomplete="gd_phone">
+                                    class="form-control @error('gd_phone') is-invalid @enderror" name="gd_phone"
+                                    value="{{ old('gd_phone') }}" required autocomplete="gd_phone">
 
                                 @error('gd_phone')
                                 <span class="invalid-feedback" role="alert">
@@ -194,6 +192,18 @@
                                     name="doc" value="{{ old('doc') }}" required autocomplete="doc">
 
                                 @error('doc')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="photo" class="text-md-right">Your Photo</label>
+                                <input id="photo" type="file" class="form-control @error('photo') is-invalid @enderror"
+                                    name="photo" value="{{ old('photo') }}" required autocomplete="doc">
+
+                                @error('photo')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

@@ -30,10 +30,22 @@
         <div class="card">
           <div class="card-header">
             {{-- <h3 class="card-title">DataTable with default features</h3> --}}
-            <a class="btn btn-primary btn-sm float-right" href="{{route('sheet.create')}}">Create</a>
+            <a class="btn btn-primary btn-sm float-right" href="{{route('sheet.create')}}"> <i class="fa fa-plus"></i>
+              Create</a>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" id="search_name">
+                  <div class="input-group-apend">
+                    <span class="input-group-text" id="searchByName" style="cursor: pointer"> <i
+                        class="fa fa-search"></i> Search</span>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="table-responsive">
               <table id="workerTablesss" class="table table-bordered table-striped table-hover" style="width:100%">
                 <thead>
@@ -47,7 +59,6 @@
                     <th>Workers</th>
                     <th>Status</th>
                     <th>Created at</th>
-                    <th>Updated at</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -67,13 +78,19 @@
                       <button class="btn btn-sm btn-success addworker" data-id="{{$sheet->id}}"
                         data-rate="{{$sheet->rate}}">Workers</button>
                     </td>
-                    <td>{{$sheet->status}}</td>
+                    <td>{{$sheet->status == 0 ? 'Runnig' : 'Close'}}</td>
                     <td>{{$sheet->created_at}}</td>
-                    <td>{{$sheet->updated_at}}</td>
                     <td>
                       <div class=" btn-group">
-                        <a href="#" class="btn btn-sm btn-info">Edit</a>
-                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                        <a href="{{route('sheet.edit', $sheet->id)}}" class="btn btn-sm btn-info">Edit</a>
+                        <a href="javascript:void(0)"
+                          onclick="event.preventDefault();if(confirm('Are you sure you want to delete this item?')) document.getElementById('sheet-delete-{{$sheet->id}}').submit();"
+                          class="btn btn-sm btn-danger">Delete</a>
+                        <form id="sheet-delete-{{$sheet->id}}" action="{{ route('sheet.destroy', $sheet->id) }}"
+                          method="POST" style="display: block;">
+                          @method('delete')
+                          @csrf
+                        </form>
                       </div>
                     </td>
                   </tr>
@@ -115,6 +132,7 @@
               <th>Code</th>
               <th>Name</th>
               <th>Rate</th>
+              <th>Action</th>
             </tr>
             <tbody id="workerDataView">
 
@@ -212,8 +230,40 @@
       });
     }
   });
+  
 
-  function getWorker(sheetId){
+  $('.worker-modal-close').click(function(){
+    location.reload();
+  });
+
+  $('.select-2').select2();
+
+  $('#searchByName').click(function(){
+      $name = $('#search_name').val();
+      if($name != ""){
+        window.location.href = "{{route('sheet.index')}}/?name="+$name;
+      }else{
+        window.location.href = "{{route('sheet.index')}}";
+      }
+  });
+});
+
+  function removeWorker(id ,sheetId){
+      $.ajax({
+        url: "{{url('/')}}/worker-to-sheet-remove/"+id,
+        type: 'GET',
+        success: function(result){
+            if(result == 'success'){
+              alert('Worker removed!');
+              getWorker(sheetId);
+            }else{
+              alert('Something went wrong!');
+            }
+          }
+      });
+  }
+
+    function getWorker(sheetId){
     $('#workerDataView').html('');
     $.ajax({
         url: "{{url('/')}}/worker-to-sheet/"+sheetId,
@@ -227,18 +277,12 @@
                         <td>${$data[i].name}</td>
                         <td>${$data[i].code}</td>
                         <td>${$data[i].rate}</td>
+                        <td><button class="btn btn-sm btn-danger" onclick="removeWorker(${$data[i].id} , ${sheetId})"><i class="fa fa-times"></i></button></td>
                       </tr>`;
              $('#workerDataView').append($html);
             }
           }
       });
   }
-
-  $('.worker-modal-close').click(function(){
-    location.reload();
-  });
-
-  $('.select-2').select2();
-});
 </script>
 @endpush

@@ -13,13 +13,17 @@ class SheetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $sheets = Sheet::paginate(20);
+        if ($request->has('name')) {
+            $sheets = Sheet::where('name', 'like', '%' . $request->name . '%')->paginate(20);
+        } else {
+            $sheets = Sheet::paginate(20);
+        }
         $workers = User::where('status', 1)->whereHas("roles", function ($q) {
             $q->where("id", 2);
         })->get();
-        return view('sheet.index', \compact('sheets', 'workers'));
+        return view('sheet.index', compact('sheets', 'workers'));
     }
 
     /**
@@ -50,10 +54,10 @@ class SheetController extends Controller
         $sheet = Sheet::create($data);
         if ($sheet) {
             toastr()->success('Sheet added successfully!');
-            return \redirect()->back();
+            return redirect()->back();
         } else {
             toastr()->error('Something went wrong');
-            return \redirect()->back();
+            return redirect()->back();
         }
     }
 
@@ -76,7 +80,7 @@ class SheetController extends Controller
      */
     public function edit(Sheet $sheet)
     {
-        //
+        return view('sheet.edit', compact('sheet'));
     }
 
     /**
@@ -97,9 +101,11 @@ class SheetController extends Controller
 
         $sheet = $sheet->update($data);
         if ($sheet) {
-            return 'Sheet updated';
+            toastr()->success('Sheet update successfully!');
+            return \redirect()->back();
         } else {
-            return 'Something went wrong';
+            toastr()->error('Something went wrong');
+            return \redirect()->back();
         }
     }
 
@@ -109,6 +115,14 @@ class SheetController extends Controller
      * @param  \App\Sheet  $sheet
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    { }
+    public function destroy(Sheet $sheet)
+    {
+        if ($sheet->delete()) {
+            toastr()->success('Sheet deleted successfully!');
+            return \redirect()->back();
+        } else {
+            toastr()->error('Something went wrong');
+            return \redirect()->back();
+        }
+    }
 }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class SheetWorker extends Model
 {
     protected $guarded = [];
-    public $appends = ['name','code'];
+    public $appends = ['name', 'code'];
 
     public function sheet()
     {
@@ -27,5 +27,10 @@ class SheetWorker extends Model
     public function getCodeAttribute()
     {
         return $this->user->code;
+    }
+
+    public function leadTrakers()
+    {
+        return $this->hasMany('App\LeadTracker');
     }
 }

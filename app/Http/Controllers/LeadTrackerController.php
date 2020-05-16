@@ -38,13 +38,15 @@ class LeadTrackerController extends Controller
         $data = $request->validate([
             'lead_count' => 'required|numeric',
             'date'       => 'required',
+            'sheet_worker_id' => 'required',
         ]);
+        $data['earn'] = 0; //this is for mutate in model
 
         $leadTracker = LeadTracker::create($data);
         if ($leadTracker) {
-            return 'Todays total lead count added successfully!';
+            return ['status' => 'success', 'message' => 'Leads count added successfully!'];
         } else {
-            return 'Something went wrong';
+            return ['status' => 'error', 'message' => 'Something went wrong!'];
         }
     }
 

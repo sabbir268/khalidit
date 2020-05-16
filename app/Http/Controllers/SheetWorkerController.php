@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\SheetWorker;
+use App\User;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+
 
 class SheetWorkerController extends Controller
 {
@@ -109,4 +112,30 @@ class SheetWorkerController extends Controller
      */
     public function destroy($id)
     { }
+
+    public function report()
+    {
+        $month = date('m');
+        $userIds = SheetWorker::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', $month)->pluck('user_id')->toArray();
+        $workers = User::whereIn('id', $userIds)->paginate(20);
+        return view('sheet.reports', compact('workers', 'month'));
+    }
+
+    public function reportByMonth($month)
+    {
+        $month = Carbon::parse($month)->month;
+        $userIds = SheetWorker::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', $month)->pluck('user_id')->toArray();
+        $workers = User::whereIn('id', $userIds)->paginate(20);
+        return view('sheet.reports', compact('workers', 'month'));
+    }
+
+    public function removeWorkers($id)
+    {
+        $sheetWorker = SheetWorker::find($id);
+        if ($sheetWorker->delete()) {
+            return 'success';
+        } else {
+            return 'error';
+        }
+    }
 }

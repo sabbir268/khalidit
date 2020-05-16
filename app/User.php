@@ -38,8 +38,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function sheets()
+    public function sheetWorkers()
     {
-        return $this->hasMany('App\Sheet');
+        return $this->hasMany('App\SheetWorker');
     }
 }
