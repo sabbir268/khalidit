@@ -16,7 +16,7 @@ class UserController extends Controller
     {
         $workers = User::whereHas("roles", function ($q) {
             $q->where("id", 2);
-        })->get();
+        })->paginate(20);
         return view('user.index', compact('workers'));
     }
 

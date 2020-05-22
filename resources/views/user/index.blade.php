@@ -111,7 +111,7 @@
               </thead>
               <tbody>
                 @php
-                $i = 1;
+                $i = ($workers->currentpage()-1)*$workers->perpage() +1;
                 @endphp
                 @foreach ($workers as $worker)
                 <tr>
@@ -130,8 +130,15 @@
                   <td>
                     <div class="btn-group">
                       <a href="{{route('worker.show',$worker->worker->id)}}" class="btn btn-sm btn-success">View</a>
-                      <a href="#" class="btn btn-sm btn-info">Edit</a>
-                      <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                      <a href="{{route('worker.edit',$worker->worker->id)}}" class="btn btn-sm btn-info">Edit</a>
+                      <a href="javascript:void(0)"
+                        onclick="event.preventDefault();if(confirm('Are you sure you want to delete this item?')) document.getElementById('delete-worker-{{$worker->worker->id}}').submit();"
+                        class="btn btn-sm btn-danger">Delete</a>
+                      <form id="delete-worker-{{$worker->worker->id}}" action="{{ route('worker.destroy', $worker->worker->id) }}"
+                        method="POST" style="display: block;">
+                        @method('delete')
+                        @csrf
+                      </form>
                     </div>
                   </td>
                 </tr>
@@ -140,6 +147,7 @@
                 @endphp
                 @endforeach
               </tbody>
+              {{$workers->links()}}
             </table>
           </div>
           <!-- /.card-body -->

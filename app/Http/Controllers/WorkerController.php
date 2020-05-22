@@ -53,7 +53,7 @@ class WorkerController extends Controller
             'online_experience' => 'required',
             'dob' => 'required',
             'misc' => 'required|string',
-            'doc' => 'required||mimes:pdf',
+            'doc' => 'nullable|mimes:pdf',
             'photo' => 'required|mimes:jpeg,png,jpg',
             'password' => 'required|confirmed'
         ]);
@@ -146,7 +146,7 @@ class WorkerController extends Controller
 
         if ($worker->update($data)) {
             toastr()->success('Info updated successfully!');
-            return redirect()->back();
+            return redirect('/user');
         } else {
             toastr()->error('Something went wrong!');
             return redirect()->back();
@@ -178,6 +178,18 @@ class WorkerController extends Controller
      */
     public function destroy(Worker $worker)
     {
-        //
+        $user = User::find($worker->user_id);
+        if ($user->delete()) {
+            if ($worker->delete()) {
+                toastr()->success('Worker deleted successfully!');
+                return redirect()->back();
+            } else {
+                toastr()->error('Something went wrong');
+                return redirect()->back();
+            }
+        } else {
+            toastr()->error('Something went wrong');
+            return redirect()->back();
+        }
     }
 }

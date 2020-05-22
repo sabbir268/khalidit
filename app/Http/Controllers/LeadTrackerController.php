@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\LeadTracker;
+use App\Sheet;
 use Illuminate\Http\Request;
 
 class LeadTrackerController extends Controller
@@ -44,6 +45,11 @@ class LeadTrackerController extends Controller
 
         $leadTracker = LeadTracker::create($data);
         if ($leadTracker) {
+            $sheet = Sheet::find($leadTracker->sheetWorker->sheet_id);
+            if (totalLeadBySheet($leadTracker->sheetWorker->sheet_id) > $sheet->target) {
+                $sheet->status = 1;
+                $sheet->save();
+            }
             return ['status' => 'success', 'message' => 'Leads count added successfully!'];
         } else {
             return ['status' => 'error', 'message' => 'Something went wrong!'];

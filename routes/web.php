@@ -11,10 +11,16 @@
 |
 */
 
+// use Carbon\Carbon;
+
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Route::get('/test', function () {
+//     return Carbon::parse(1)->month;
+// });
 
 Auth::routes();
 
@@ -35,5 +41,6 @@ Route::get('/worker-to-sheet/{sheet_id}', 'SheetWorkerController@getWorkers')->n
 Route::get('/worker-to-sheet-remove/{id}', 'SheetWorkerController@removeWorkers')->name('worker.remove')->middleware('role:admin');
 
 Route::get('/leads-report', 'SheetWorkerController@report')->name('lead.report')->middleware('role:admin');
+Route::get('/leads-report/user/{user_id}/{month}', 'SheetWorkerController@reportDetailsUser')->name('lead.report.user')->middleware('role:admin');
 
 Route::get('/leads-report/{month}', 'SheetWorkerController@reportByMonth')->middleware('role:admin');

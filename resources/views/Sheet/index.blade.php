@@ -64,13 +64,13 @@
                 </thead>
                 <tbody>
                   @php
-                  $i = 1;
+                  $i = ($sheets->currentpage()-1)*$sheets->perpage() +1;
                   @endphp
                   @foreach ($sheets as $sheet)
                   <tr>
                     <td>{{$i}}</td>
                     <td>{{$sheet->name}}</td>
-                    <td>{{$sheet->link}}</td>
+                    <td> <a href="{{$sheet->link}}" target="_blank">Click to open</a></td>
                     <td>{{$sheet->rate}}</td>
                     <td>{{$sheet->target}}</td>
                     <td>{{$sheet->sheetWorkers->count()}}</td>
@@ -100,6 +100,7 @@
                   @endforeach
                 </tbody>
               </table>
+              {{$sheets->links()}}
             </div>
           </div>
           <!-- /.card-body -->
@@ -154,7 +155,7 @@
             </div>
             <div class="form-group col-md-4">
               <label for="">Rate</label>
-              <input type="number" class="form-control form-control-sm" value="" id="rate" name="rate"
+              <input type="number" step="0.01" class="form-control form-control-sm" value="" id="rate" name="rate"
                 placeholder="Rate">
             </div>
             <input type="text" name="sheet_id" id="sheet_id" value="" hidden>
@@ -169,7 +170,6 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary worker-modal-close" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
@@ -225,6 +225,7 @@
             }else{
               getWorker($sheetId);
               alert(result.message)
+              location.reload();
             }
           }
       });
@@ -238,15 +239,28 @@
 
   $('.select-2').select2();
 
+  
+
   $('#searchByName').click(function(){
-      $name = $('#search_name').val();
+      searchByName();
+  });
+
+  $('#search_name').keyup(function(e){
+    console.log(e.keyCode)
+    if(e.keyCode === 13){
+      searchByName();
+    }
+  });
+});
+
+function searchByName(){
+    $name = $('#search_name').val();
       if($name != ""){
         window.location.href = "{{route('sheet.index')}}/?name="+$name;
       }else{
         window.location.href = "{{route('sheet.index')}}";
       }
-  });
-});
+}
 
   function removeWorker(id ,sheetId){
       $.ajax({

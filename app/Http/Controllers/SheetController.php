@@ -16,9 +16,9 @@ class SheetController extends Controller
     public function index(Request $request)
     {
         if ($request->has('name')) {
-            $sheets = Sheet::where('name', 'like', '%' . $request->name . '%')->paginate(20);
+            $sheets = Sheet::where('name', 'like', '%' . $request->name . '%')->orderBy('id', 'DESC')->paginate(20);
         } else {
-            $sheets = Sheet::paginate(20);
+            $sheets = Sheet::orderBy('id', 'DESC')->paginate(20);
         }
         $workers = User::where('status', 1)->whereHas("roles", function ($q) {
             $q->where("id", 2);

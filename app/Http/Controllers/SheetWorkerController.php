@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\LeadTracker;
+use App\Sheet;
 use App\SheetWorker;
 use App\User;
 use Illuminate\Http\Request;
@@ -113,22 +115,6 @@ class SheetWorkerController extends Controller
     public function destroy($id)
     { }
 
-    public function report()
-    {
-        $month = date('m');
-        $userIds = SheetWorker::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', $month)->pluck('user_id')->toArray();
-        $workers = User::whereIn('id', $userIds)->paginate(20);
-        return view('sheet.reports', compact('workers', 'month'));
-    }
-
-    public function reportByMonth($month)
-    {
-        $month = Carbon::parse($month)->month;
-        $userIds = SheetWorker::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', $month)->pluck('user_id')->toArray();
-        $workers = User::whereIn('id', $userIds)->paginate(20);
-        return view('sheet.reports', compact('workers', 'month'));
-    }
-
     public function removeWorkers($id)
     {
         $sheetWorker = SheetWorker::find($id);
@@ -137,5 +123,55 @@ class SheetWorkerController extends Controller
         } else {
             return 'error';
         }
+    }
+
+    public function report()
+    {
+        $month = month(date('m'));
+        $userIds = SheetWorker::whereBetween('created_at', $month)->pluck('user_id')->toArray();
+        $workers = User::whereIn('id', $userIds)->paginate(20);
+        return view('sheet.reports', compact('workers', 'month'));
+    }
+
+    public function reportByMonth($month)
+    {
+        if (!strrchr($month, ",")) {
+            $month = Carbon::parse($month)->month;
+            $month = month($month);
+        } else {
+            $month = explode(",", $month);
+        }
+        $userIds = SheetWorker::whereBetween('created_at', $month)->pluck('user_id')->toArray();
+        $workers = User::whereIn('id', $userIds)->paginate(20);
+        return view('sheet.reports', compact('workers', 'month'));
+    }
+
+    // public function reportByDate($dates)
+    // {
+    //     if (strlen($dates) <= 2) {
+    //         $dates = month($dates);
+    //     } else {
+    //         return $dates = explode(",", $dates);
+    //     }
+
+    //     $sheetWorkersIds = LeadTracker::whereBetween('date', $dates)->pluck('sheet_worker_id')->toArray();
+    //     $userIds = SheetWorker::whereIn('id', $sheetWorkersIds)->pluck('user_id')->toArray();
+    //     $workers = User::whereIn('id', $userIds)->paginate(20);
+    //     return view('sheet.reports', compact('workers', 'month'));
+    // }
+
+
+    public function reportDetailsUser($user_id, $dates)
+    {
+        if (strlen($dates) <= 2) {
+            $dates = month($dates);
+        } else {
+            $dates = explode(",", $dates);
+        }
+        $sheetWorkersIds = LeadTracker::whereBetween('date', $dates)->pluck('sheet_worker_id')->toArray();
+        $sheet_ids = SheetWorker::where('user_id', $user_id)->pluck('sheet_id')->toArray();
+        $sheets = Sheet::whereIn('id', $sheet_ids)->get();
+        $user = User::find($user_id);
+        return view('sheet.details', compact('sheets', 'user'));
     }
 }

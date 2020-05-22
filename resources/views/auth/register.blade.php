@@ -23,7 +23,8 @@
                             <div class="form-group col-md-6">
                                 <label for="name" class=" text-md-right">{{ __('Name') }}</label>
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                                    name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Jhon Doe">
+                                    name="name" value="{{ old('name') }}" required autocomplete="name" autofocus
+                                    placeholder="Jhon Doe">
 
                                 @error('name')
                                 <span class="invalid-feedback" role="alert">
@@ -36,7 +37,8 @@
                             <div class="form-group col-md-6">
                                 <label for="email" class=" text-md-right">{{ __('E-Mail Address') }}</label>
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                                    name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="jhondoe@mail.com">
+                                    name="email" value="{{ old('email') }}" required autocomplete="email"
+                                    placeholder="jhondoe@mail.com">
 
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -50,7 +52,8 @@
 
 
                                 <input id="phone" type="phone" class="form-control @error('phone') is-invalid @enderror"
-                                    name="phone" value="{{ old('phone') }}" required autocomplete="phone" placeholder="+88017xxxxxxxx">
+                                    name="phone" value="{{ old('phone') }}" required autocomplete="phone"
+                                    placeholder="+88017xxxxxxxx">
 
                                 @error('phone')
                                 <span class="invalid-feedback" role="alert">
@@ -65,7 +68,8 @@
 
                                 <input id="gd_phone" type="text"
                                     class="form-control @error('gd_phone') is-invalid @enderror" name="gd_phone"
-                                    value="{{ old('gd_phone') }}" required autocomplete="gd_phone" placeholder="+88017xxxxxxxx">
+                                    value="{{ old('gd_phone') }}" required autocomplete="gd_phone"
+                                    placeholder="+88017xxxxxxxx">
 
                                 @error('gd_phone')
                                 <span class="invalid-feedback" role="alert">
@@ -80,7 +84,8 @@
 
                                 <input id="fb_link" type="fb_link"
                                     class="form-control @error('fb_link') is-invalid @enderror" name="fb_link"
-                                    value="{{ old('fb_link') }}" required autocomplete="fb_link" placeholder="www.facebook.com/myprofile">
+                                    value="{{ old('fb_link') }}" required autocomplete="fb_link"
+                                    placeholder="www.facebook.com/myprofile">
 
                                 @error('fb_link')
                                 <span class="invalid-feedback" role="alert">
@@ -95,7 +100,8 @@
 
                                 <input id="pr_address" type="pr_address"
                                     class="form-control @error('pr_address') is-invalid @enderror" name="pr_address"
-                                    value="{{ old('pr_address') }}" required autocomplete="pr_address" placeholder="Village: xxx , Union: xxx, Post-code: 0000 , Thana: XXX XX , District: xxx ">
+                                    value="{{ old('pr_address') }}" required autocomplete="pr_address"
+                                    placeholder="Village: xxx , Union: xxx, Post-code: 0000 , Thana: XXX XX , District: xxx ">
 
                                 @error('pr_address')
                                 <span class="invalid-feedback" role="alert">
@@ -110,7 +116,8 @@
 
                                 <input id="cr_address" type="cr_address"
                                     class="form-control @error('cr_address') is-invalid @enderror" name="cr_address"
-                                    value="{{ old('cr_address') }}" required autocomplete="cr_address" placeholder="Village: xxx , Union: xxx, Post-code: 0000 , Thana: XXX XX , District: xxx ">
+                                    value="{{ old('cr_address') }}" required autocomplete="cr_address"
+                                    placeholder="Village: xxx , Union: xxx, Post-code: 0000 , Thana: XXX XX , District: xxx ">
 
                                 @error('cr_address')
                                 <span class="invalid-feedback" role="alert">
@@ -139,9 +146,14 @@
 
                             <div class="form-group col-md-3">
                                 <label for="ssc_batch" class="text-md-right">{{ __('SSC Batch') }}</label>
-                                <input id="ssc_batch" type="number"
-                                    class="form-control @error('ssc_batch') is-invalid @enderror" name="ssc_batch"
-                                    value="{{ old('ssc_batch') }}" required autocomplete="ssc_batch" placeholder="2000">
+                                {{-- <input id="ssc_batch" type="number" value="{{ old('ssc_batch') }}" required
+                                autocomplete="ssc_batch" placeholder="2000"> --}}
+                                <select name="ssc_batch" id="ssc_batch"
+                                    class="form-control @error('ssc_batch') is-invalid @enderror" name="ssc_batch">
+                                    @for ($i = date("Y") - 1; $i >= 2008; $i--)
+                                    <option value="{{$i}}">{{$i}}</option>
+                                    @endfor
+                                </select>
 
                                 @error('ssc_batch')
                                 <span class="invalid-feedback" role="alert">
@@ -154,7 +166,8 @@
                                 <label for="registration" class="text-md-right">{{ __('SSC Registration') }}</label>
                                 <input id="registration" type="number"
                                     class="form-control @error('registration') is-invalid @enderror" name="registration"
-                                    value="{{ old('registration') }}" required autocomplete="registration" placeholder="0000000000000">
+                                    value="{{ old('registration') }}" required autocomplete="registration"
+                                    placeholder="0000000000000">
 
                                 @error('registration')
                                 <span class="invalid-feedback" role="alert">
@@ -165,7 +178,8 @@
                             <div class="form-group col-md-3">
                                 <label for="roll" class="text-md-right">{{ __('SSC Roll') }}</label>
                                 <input id="roll" type="number" class="form-control @error('roll') is-invalid @enderror"
-                                    name="roll" value="{{ old('roll') }}" required autocomplete="roll" placeholder="0000000000000">
+                                    name="roll" value="{{ old('roll') }}" required autocomplete="roll"
+                                    placeholder="0000000000000">
 
                                 @error('roll')
                                 <span class="invalid-feedback" role="alert">
@@ -177,7 +191,8 @@
                             <div class="form-group col-md-3">
                                 <label for="board" class="text-md-right">{{ __('SSC Board') }}</label>
                                 <input id="board" type="text" class="form-control @error('board') is-invalid @enderror"
-                                    name="board" value="{{ old('board') }}" required autocomplete="board" placeholder="Jashore">
+                                    name="board" value="{{ old('board') }}" required autocomplete="board"
+                                    placeholder="Jashore">
 
                                 @error('board')
                                 <span class="invalid-feedback" role="alert">
@@ -221,9 +236,10 @@
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label for="doc" class="text-md-right">Upload Curriculum Vitae <small>(PDF only)</small></label>
+                                <label for="doc" class="text-md-right">Upload Curriculum Vitae <small>(PDF
+                                        only)</small></label>
                                 <input id="doc" type="file" class="form-control @error('doc') is-invalid @enderror"
-                                    name="doc" value="{{ old('doc') }}" required autocomplete="doc">
+                                    name="doc" value="{{ old('doc') }}">
                                 @error('doc')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -281,8 +297,8 @@
                             </div>
 
                             <div class="form-group mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary w-100">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary col-md-12">
                                         {{ __('Register') }}
                                     </button>
                                 </div>

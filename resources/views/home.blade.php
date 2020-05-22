@@ -41,7 +41,7 @@
             <div class="icon">
               <i class="ion ion-bag"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{url('/user')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -59,7 +59,7 @@
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{url('/sheet')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -74,7 +74,8 @@
             <div class="icon">
               <i class="ion ion-person-add"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{url('/leads-report')}}" class="small-box-footer">More info <i
+                class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -88,7 +89,36 @@
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{url('/leads-report')}}" class="small-box-footer">More info <i
+                class="fas fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-6 col-6">
+          <!-- small box -->
+          <div class="small-box bg-secondary">
+            <div class="inner">
+              <h3>Tk {{totalEarn()}} <small style="font-size: 10px">(By Worker)</small></h3>
+              <p>Total Lifetime Earned</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-pie-graph"></i>
+            </div>
+            {{-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
+          </div>
+        </div>
+
+        <div class="col-lg-6 col-6">
+          <!-- small box -->
+          <div class="small-box bg-primary">
+            <div class="inner">
+              <h3>{{totalLead()}}</h3>
+              <p>Total Lifetime Lead collect</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-pie-graph"></i>
+            </div>
+            {{-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
           </div>
         </div>
         <!-- ./col -->
@@ -99,7 +129,8 @@
       @if (auth()->user()->status == 0)
       <div class="alert alert-warning text-center" role="alert">
         Your account is not approved yet. Please wait for approval and return back again! <br>
-        <a href="{{route('worker.show', auth()->user()->worker->id)}}">View</a> or <a href="{{route('worker.edit', auth()->user()->worker->id)}}">Edit</a> your submission 
+        <a href="{{route('worker.show', auth()->user()->worker->id)}}">View</a> or <a
+          href="{{route('worker.edit', auth()->user()->worker->id)}}">Edit</a> your submission
       </div>
       @else
       <div class="row">
@@ -107,7 +138,7 @@
           <!-- small box -->
           <div class="small-box bg-info">
             <div class="inner">
-              <h3>Tk {{earnByMonthUser(auth()->user()->id , date('m'))}} /-</h3>
+              <h3>Tk {{earnByMonthUser(auth()->user()->id , date('m'))}}/-</h3>
 
               <p>Current Month Eearning</p>
             </div>
@@ -136,7 +167,7 @@
           <!-- small box -->
           <div class="small-box bg-warning">
             <div class="inner">
-              <h3>{{totalEarnByUser(auth()->user()->id)}}</h3>
+              <h3>Tk {{totalEarnByUser(auth()->user()->id)}}/-</h3>
 
               <p>Life Time Total Eearning</p>
             </div>
@@ -151,7 +182,7 @@
           <!-- small box -->
           <div class="small-box bg-danger">
             <div class="inner">
-              <h3>Tk {{totalLeadByUser(auth()->user()->id)}} <small style="font-size: 10px">(By Worker)</small></h3>
+              <h3>{{totalLeadByUser(auth()->user()->id)}} </h3>
               <p>Life Time Total Lead Generated</p>
             </div>
             <div class="icon">
@@ -172,6 +203,7 @@
             <div class="body p-3">
               @if(auth()->user()->sheetWorkers->count() > 0)
               @foreach (auth()->user()->sheetWorkers as $sheet)
+              @if ($sheet->sheet->status == 0)
               <div class="alert alert-info" role="alert">
                 <div class="col-md-12">
                   <span class="badge badge-pill badge-light ">Name: {{$sheet->sheet->name}}</span> <span
@@ -199,6 +231,7 @@
                   </div>
                 </div>
               </div>
+              @endif
               @endforeach
               @else
               <div class="alert alert-warning text-center" role="alert">
@@ -215,7 +248,7 @@
             </div>
             <div class="body p-3">
               @php
-              $sheets = \App\Sheet::paginate(10);
+              $sheets = \App\Sheet::where('status',0)->paginate(10);
               @endphp
               @foreach ($sheets as $sheet)
               <div class="alert alert-success" role="alert">
