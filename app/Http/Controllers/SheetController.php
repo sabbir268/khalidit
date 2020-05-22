@@ -16,9 +16,9 @@ class SheetController extends Controller
     public function index(Request $request)
     {
         if ($request->has('name')) {
-            $sheets = Sheet::where('name', 'like', '%' . $request->name . '%')->orderBy('id', 'DESC')->paginate(20);
+            $sheets = Sheet::where('name', 'like', '%' . $request->name . '%')->where('status', 0)->orderBy('id', 'DESC')->paginate(20);
         } else {
-            $sheets = Sheet::orderBy('id', 'DESC')->paginate(20);
+            $sheets = Sheet::where('status', 0)->orderBy('id', 'DESC')->paginate(20);
         }
         $workers = User::where('status', 1)->whereHas("roles", function ($q) {
             $q->where("id", 2);
@@ -119,6 +119,31 @@ class SheetController extends Controller
     {
         if ($sheet->delete()) {
             toastr()->success('Sheet deleted successfully!');
+            return \redirect()->back();
+        } else {
+            toastr()->error('Something went wrong');
+            return \redirect()->back();
+        }
+    }
+
+    public function markDone($id)
+    {
+        $sheet = Sheet::find($id);
+        $sheet->status = 1;
+        if ($sheet->save()) {
+            toastr()->success('Sheet mark as done successfully!');
+            return \redirect()->back();
+        } else {
+            toastr()->error('Something went wrong');
+            return \redirect()->back();
+        }
+    }
+    public function markUnDone($id)
+    {
+        $sheet = Sheet::find($id);
+        $sheet->status = 0;
+        if ($sheet->save()) {
+            toastr()->success('Sheet mark as done successfully!');
             return \redirect()->back();
         } else {
             toastr()->error('Something went wrong');

@@ -78,7 +78,15 @@
                       <button class="btn btn-sm btn-success addworker" data-id="{{$sheet->id}}"
                         data-rate="{{$sheet->rate}}">Workers</button>
                     </td>
-                    <td>{{$sheet->status == 0 ? 'Runnig' : 'Close'}}</td>
+                    <td class="text-center">
+                      @if ($sheet->status == 0)
+                      <span>Runnig</span> <br>
+                      <a href="{{route('sheet.done', $sheet->id)}}" class="btn btn-sm btn-info">Mark Done</a>
+                      @else
+                      <span>Closed</span> <br>
+                      <a href="{{route('sheet.done', $sheet->id)}}" class="btn btn-sm btn-warning">Undo Done</a>
+                      @endif
+                    </td>
                     <td>{{$sheet->created_at}}</td>
                     <td>
                       <div class=" btn-group">

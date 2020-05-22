@@ -43,29 +43,36 @@
                         <span class="input-group-text" id="basic-addon1">Month</span>
                       </div>
                       <select name="month" class="form-control" id="month">
-                        <option value="January" {{$month == 1 ? 'selected' : ''}}>
+                        <option value="">Select Month</option>
+                        <option value="January"
+                          {{collect(request()->segments())->last() == "January" ? 'selected' : ''}}>
                           January</option>
-                        <option value="February" {{$month== 2 ? 'selected' : ''}}>
+                        <option value="February"
+                          {{collect(request()->segments())->last() == "February" ? 'selected' : ''}}>
                           February</option>
-                        <option value="March" {{$month== 3 ? 'selected' : ''}}>
+                        <option value="March" {{collect(request()->segments())->last() == "March" ? 'selected' : ''}}>
                           March</option>
-                        <option value="April" {{$month== 4 ? 'selected' : ''}}>
+                        <option value="April" {{collect(request()->segments())->last() == "April" ? 'selected' : ''}}>
                           April</option>
-                        <option value="May" {{$month== 5 ? 'selected' : ''}}>
+                        <option value="May" {{collect(request()->segments())->last() == "May" ? 'selected' : ''}}>
                           May</option>
-                        <option value="June" {{$month== 6 ? 'selected' : ''}}>
+                        <option value="June" {{collect(request()->segments())->last() == "June"? 'selected' : ''}}>
                           June</option>
-                        <option value="July" {{$month== 7 ? 'selected' : ''}}>
+                        <option value="July" {{collect(request()->segments())->last() == "July" ? 'selected' : ''}}>
                           July</option>
-                        <option value="August" {{$month== 8 ? 'selected' : ''}}>
+                        <option value="August" {{collect(request()->segments())->last() == "August" ? 'selected' : ''}}>
                           August</option>
-                        <option value="September" {{$month== 9 ? 'selected' : ''}}>
+                        <option value="September"
+                          {{collect(request()->segments())->last() == "September" ? 'selected' : ''}}>
                           September</option>
-                        <option value="October" {{$month== 10 ? 'selected' : ''}}>
+                        <option value="October"
+                          {{collect(request()->segments())->last() == "October" ? 'selected' : ''}}>
                           October</option>
-                        <option value="November" {{$month== 11 ? 'selected' : ''}}>
+                        <option value="November"
+                          {{collect(request()->segments())->last() == "November" ? 'selected' : ''}}>
                           November</option>
-                        <option value="December" {{$month== 12  ? 'selected' : ''}}>
+                        <option value="December"
+                          {{collect(request()->segments())->last() == "December"  ? 'selected' : ''}}>
                           December</option>
                       </select>
                     </div>
@@ -174,6 +181,8 @@
              console.log(this.value);
              if(!this.value == ''){
                 window.location.href = '{{url('/')}}/leads-report/'+this.value
+             }else{
+               window.location.href = '{{url('/')}}/leads-report';
              }
         });
     })
@@ -190,7 +199,7 @@
   });
 
   $('#mydate').on('apply.daterangepicker', function(ev, picker) {
-      $(this).val(picker.startDate.format('MM-DD-YYYY') + ',' + picker.endDate.format('MM-DD-YYYY'));
+      $(this).val(picker.startDate.format('YYYY-MM-DD') + ',' + picker.endDate.format('YYYY-MM-DD'));
       window.location.href = '{{url('/')}}/leads-report/'+$(this).val();
   });
 

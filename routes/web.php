@@ -35,6 +35,8 @@ Route::post('/user/status-change', 'UserController@statusChange')->name('status.
 Route::resource('sheet', 'SheetController')->middleware('role:admin');
 Route::resource('lead-track', 'LeadTrackerController')->middleware('auth');
 Route::resource('worker', 'WorkerController')->middleware('auth');
+Route::get('/sheet/done/{id}', 'SheetController@markDone')->name('sheet.done');
+Route::get('/sheet/done-undo/{id}', 'SheetController@markUnDone')->name('sheet.undodone');;
 
 Route::post('/worker-to-sheet/add', 'SheetWorkerController@store')->name('add.worker')->middleware('role:admin');
 Route::get('/worker-to-sheet/{sheet_id}', 'SheetWorkerController@getWorkers')->name('get.worker')->middleware('role:admin');
