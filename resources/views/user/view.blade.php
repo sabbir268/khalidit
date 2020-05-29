@@ -55,10 +55,12 @@
                   <b>Phone:</b> {{$worker->phone}}
                 </div>
 
+                @if ($worker->doc)
                 <div class="alert alert-light" role="alert">
-                    <b>CV:</b> <a class="text-primary" href="{{asset('/storage/'.$worker->doc)}}" target="_blank">
-                      Click to view CV</a>
+                  <b>CV:</b> <a class="text-primary" href="{{asset('/storage/'.$worker->doc)}}" target="_blank">
+                    Click to view CV</a>
                 </div>
+                @endif
               </div>
               <div class="col-md-6">
                 <div class="alert alert-light" role="alert">

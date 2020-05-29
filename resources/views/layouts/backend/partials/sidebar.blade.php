@@ -83,6 +83,12 @@
               </a>
             </li>
             <li class="nav-item">
+              <a href="{{route('sheet.complete')}}" class="nav-link {{ request()->is('sheet-complete') ? 'active' : '' }}">
+                <i class="fas fa-table nav-icon"></i>
+                <p>Completed</p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a a href="{{route('sheet.create')}}"
                 class="nav-link {{ request()->is('sheet/create') ? 'active' : '' }}">
                 <i class="fas fa-plus-circle nav-icon"></i>

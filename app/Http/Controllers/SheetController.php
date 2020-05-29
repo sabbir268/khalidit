@@ -26,6 +26,19 @@ class SheetController extends Controller
         return view('sheet.index', compact('sheets', 'workers'));
     }
 
+    public function completed(Request $request)
+    {
+        if ($request->has('name')) {
+            $sheets = Sheet::where('name', 'like', '%' . $request->name . '%')->where('status', 1)->orderBy('id', 'DESC')->paginate(20);
+        } else {
+            $sheets = Sheet::where('status', 1)->orderBy('id', 'DESC')->paginate(20);
+        }
+        $workers = User::where('status', 1)->whereHas("roles", function ($q) {
+            $q->where("id", 2);
+        })->get();
+        return view('sheet.done', compact('sheets', 'workers'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
