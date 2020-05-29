@@ -16,8 +16,16 @@ class UserController extends Controller
     {
         $workers = User::whereHas("roles", function ($q) {
             $q->where("id", 2);
-        })->paginate(20);
+        })->where('status', 1)->paginate(20);
         return view('user.index', compact('workers'));
+    }
+
+    public function new()
+    {
+        $workers = User::whereHas("roles", function ($q) {
+            $q->where("id", 2);
+        })->where('status', 0)->paginate(20);
+        return view('user.new', compact('workers'));
     }
 
     /**

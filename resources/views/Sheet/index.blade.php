@@ -233,7 +233,6 @@
             }else{
               getWorker($sheetId);
               alert(result.message)
-              location.reload();
             }
           }
       });

@@ -130,7 +130,7 @@
                                 <label for="study" class="text-md-right">{{ __('Current Study') }}</label>
                                 <select id="study" class="form-control @error('study') is-invalid @enderror"
                                     name="study" value="{{ old('study') }}">
-                                    <option value="SSH">SSC</option>
+                                    <option value="SSC">SSC</option>
                                     <option value="HSC">HSC</option>
                                     <option value="Degree">Degree</option>
                                     <option value="Diploma">Diploma</option>

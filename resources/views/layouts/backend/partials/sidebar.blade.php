@@ -12,7 +12,9 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="{{asset(auth()->user()->hasRole('admin') ? 'asset/dist/avatar.png' : '/storage/'.auth()->user()->worker->photo)}}" class="img-circle elevation-2" style="height: 35px;weidth:35px" alt="User Image">
+        <img
+          src="{{asset(auth()->user()->hasRole('admin') ? 'asset/dist/avatar.png' : '/storage/'.auth()->user()->worker->photo)}}"
+          class="img-circle elevation-2" style="height: 35px;weidth:35px" alt="User Image">
       </div>
       <div class="info">
         <a href="#" class="d-block">{{auth()->user()->name}}</a>
@@ -48,6 +50,12 @@
               <a href="{{route('user.index')}}" class="nav-link {{ (request()->is('user')) ? 'active' : '' }}">
                 <i class="fas fa-users nav-icon"></i>
                 <p>Workers</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{route('user.new')}}" class="nav-link {{ (request()->is('user-new')) ? 'active' : '' }}">
+                <i class="fas fa-users nav-icon"></i>
+                <p>New Applicant</p>
               </a>
             </li>
             <li class="nav-item">

@@ -29,6 +29,7 @@ Route::post('/register-member', 'WorkerController@store')->name('member.register
 
 /** Worker routes */
 Route::resource('user', 'UserController')->middleware('role:admin');
+Route::get('user-new', 'UserController@new')->name('user.new')->middleware('role:admin');
 Route::post('/user/status-change', 'UserController@statusChange')->name('status.change')->middleware('role:admin');
 
 /** sheet routes */
