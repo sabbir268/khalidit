@@ -7,8 +7,13 @@ function month($month, $year = '')
     if ($year == '') {
         $year = date('Y');
     }
+    if (date('d') > 25) {
+        $month = $month + 1;
+        if($month == 13){
+            $month = 1;
+        }
+    }
 
-    // $month = strtolower($month);
     switch ($month) {
         case 1:
             $m = $year - 1 . '-12-26' . ',' . $year . '-01-25';
@@ -101,6 +106,7 @@ function leadByMonthUser($user_id, $month)
     // if (gettype($month) == 'string') {
     //     $month = Carbon::parse($month)->month;
     // }
+    
 
     $sheetWorkersId = \App\SheetWorker::where('user_id', $user_id)->pluck('id')->toArray();
     return \App\LeadTracker::whereIn('sheet_worker_id', $sheetWorkersId)->whereBetween('date', month($month))->sum('lead_count');

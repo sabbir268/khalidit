@@ -36,7 +36,7 @@
               @endphp
               <h3>{{$user->assignRole('worker')->count()}}</h3>
 
-              <p>Total Workers</p>
+              <p>Total Workers <br>-</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
@@ -54,7 +54,7 @@
             <div class="inner">
               <h3>{{$sheet->where('status',0)->count()}}<sup style="font-size: 20px"></sup></h3>
 
-              <p>Project Runing (Sheet)</p>
+              <p>Project Runing (Sheet) <br>-</p>
             </div>
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
@@ -69,7 +69,7 @@
             <div class="inner">
               <h3>{{totalLeadCM()}}</h3>
 
-              <p>Current Month Lead Generated</p>
+              <p>Current Month Lead Generated <br> {{date("d M'Y",strtotime(month(date('m'))[0]))}} - {{date("d M'Y",strtotime(month(date('m'))[1]))}}</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
@@ -84,7 +84,7 @@
           <div class="small-box bg-danger">
             <div class="inner">
               <h3>Tk {{totalEarnCM()}} <small style="font-size: 10px">(By Worker)</small></h3>
-              <p>Current Month Total Earned</p>
+              <p>Current Month Total Earned <br> {{date("d M'Y",strtotime(month(date('m'))[0]))}} - {{date("d M'Y",strtotime(month(date('m'))[1]))}}</p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
@@ -140,7 +140,7 @@
             <div class="inner">
               <h3>Tk {{earnByMonthUser(auth()->user()->id , date('m'))}}/-</h3>
 
-              <p>Current Month Eearning</p>
+              <p>Current Month Eearning <br> {{date("d M'Y",strtotime(month(date('m'))[0]))}} - {{date("d M'Y",strtotime(month(date('m'))[1]))}}</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
@@ -154,7 +154,7 @@
           <div class="small-box bg-success">
             <div class="inner">
               <h3>{{leadByMonthUser(auth()->user()->id , date('m'))}}<sup style="font-size: 20px"></sup></h3>
-              <p>Current Month Lead Generated</p>
+            <p>Current Month Lead Generated  <br> {{date("d M'Y",strtotime(month(date('m'))[0]))}} - {{date("d M'Y",strtotime(month(date('m'))[1]))}}</p>
             </div>
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
@@ -169,7 +169,7 @@
             <div class="inner">
               <h3>Tk {{totalEarnByUser(auth()->user()->id)}}/-</h3>
 
-              <p>Life Time Total Eearning</p>
+              <p>Life Time Total Eearning <br> -</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
@@ -183,7 +183,7 @@
           <div class="small-box bg-danger">
             <div class="inner">
               <h3>{{totalLeadByUser(auth()->user()->id)}} </h3>
-              <p>Life Time Total Lead Generated</p>
+              <p>Life Time Total Lead Generated <br>-</p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
