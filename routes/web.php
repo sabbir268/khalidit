@@ -22,7 +22,7 @@ Route::get('/', function () {
 //     return Carbon::parse(1)->month;
 // });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/register-member', 'WorkerController@store')->name('member.register');

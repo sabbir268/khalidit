@@ -156,7 +156,7 @@ class SheetController extends Controller
         $sheet = Sheet::find($id);
         $sheet->status = 0;
         if ($sheet->save()) {
-            toastr()->success('Sheet mark as done successfully!');
+            toastr()->success('Sheet mark as done undo successfully!');
             return \redirect()->back();
         } else {
             toastr()->error('Something went wrong');

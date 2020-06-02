@@ -65,6 +65,14 @@
                   $i++;
                   @endphp
                   @endforeach
+                  <tr>
+                    <td colspan="3">Total:</td>
+                    <td class="text-center">
+                      {{leadByDateUserSheet($user->id, $sheets->pluck('id')->toArray(), $dates[0] , $dates[1])}}</td>
+                    <td class="text-center">-</td>
+                    <td class="text-center">
+                      {{earnByDateUserSheets($user->id,$sheets->pluck('id')->toArray(), $dates[0] , $dates[1])}}</td>
+                  </tr>
                 </tbody>
               </table>
             </div>

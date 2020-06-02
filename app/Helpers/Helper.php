@@ -9,7 +9,7 @@ function month($month, $year = '')
     }
     if (date('d') > 25) {
         $month = $month + 1;
-        if($month == 13){
+        if ($month == 13) {
             $month = 1;
         }
     }
@@ -103,35 +103,26 @@ function worksOnSheetByDate($user_id, $dateFrom, $dateTo)
 
 function leadByMonthUser($user_id, $month)
 {
-    // if (gettype($month) == 'string') {
-    //     $month = Carbon::parse($month)->month;
-    // }
-    
-
     $sheetWorkersId = \App\SheetWorker::where('user_id', $user_id)->pluck('id')->toArray();
     return \App\LeadTracker::whereIn('sheet_worker_id', $sheetWorkersId)->whereBetween('date', month($month))->sum('lead_count');
 }
 
-function leadByDatehUser($user_id, $dateFrom, $dateTo)
+function leadByDateUser($user_id, $dateFrom, $dateTo)
 {
-    $sheetWorkersId = \App\SheetWorker::where('user_id', $user_id)->pluck('id')->toArray();
-    return \App\LeadTracker::whereIn('sheet_worker_id', $sheetWorkersId)->whereBetween('date', [$dateFrom, $dateTo])->sum('lead_count');
+    $sheetWorkersId = \App\SheetWorker::where('user_id', $user_id)->whereBetween('created_at', [$dateFrom, $dateTo])->pluck('id')->toArray();
+    return \App\LeadTracker::whereIn('sheet_worker_id', $sheetWorkersId)->sum('lead_count');
 }
 
 function earnByMonthUser($user_id, $month)
 {
-    // if (gettype($month) == 'string') {
-    //     $month = Carbon::parse($month)->month;
-    // }
-
     $sheetWorkersId = \App\SheetWorker::where('user_id', $user_id)->pluck('id')->toArray();
     return \App\LeadTracker::whereIn('sheet_worker_id', $sheetWorkersId)->whereBetween('date', month($month))->sum('earn');
 }
 
 function earnByDateUser($user_id, $dateFrom, $dateTo)
 {
-    $sheetWorkersId = \App\SheetWorker::where('user_id', $user_id)->pluck('id')->toArray();
-    return \App\LeadTracker::whereIn('sheet_worker_id', $sheetWorkersId)->whereBetween('date', [$dateFrom, $dateTo])->sum('earn');
+    $sheetWorkersId = \App\SheetWorker::where('user_id', $user_id)->whereBetween('created_at', [$dateFrom, $dateTo])->pluck('id')->toArray();
+    return \App\LeadTracker::whereIn('sheet_worker_id', $sheetWorkersId)->sum('earn');
 }
 
 function totalEarnBySheet($sheetId)
@@ -164,4 +155,18 @@ function getUserRate($sheet_id, $user_id)
 {
     $sheetWorker =  \App\SheetWorker::where('user_id', $user_id)->where('sheet_id', $sheet_id)->first();
     return $sheetWorker ? $sheetWorker->rate : 0;
+}
+
+/** Total */
+
+function earnByDateUserSheets($user_id, $sheets, $dateFrom, $dateTo)
+{
+    $sheetWorkersId = \App\SheetWorker::where('user_id', $user_id)->whereIn('sheet_id', $sheets)->whereBetween('created_at', [$dateFrom, $dateTo])->pluck('id')->toArray();
+    return \App\LeadTracker::whereIn('sheet_worker_id', $sheetWorkersId)->sum('earn');
+}
+
+function leadByDateUserSheet($user_id, $sheets, $dateFrom, $dateTo)
+{
+    $sheetWorkersId = \App\SheetWorker::where('user_id', $user_id)->whereIn('sheet_id', $sheets)->whereBetween('created_at', [$dateFrom, $dateTo])->pluck('id')->toArray();
+    return \App\LeadTracker::whereIn('sheet_worker_id', $sheetWorkersId)->sum('lead_count');
 }

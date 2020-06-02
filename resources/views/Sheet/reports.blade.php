@@ -80,7 +80,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">Date</span>
                       </div>
-                      <input type="text" class="form-control" id="mydate">
+                      <input type="text" class="form-control" id="mydate"  autocomplete="off">
                     </div>
                   </div>
                 </div>
@@ -117,7 +117,7 @@
                     <td>{{$worker->name}}</td>
                     <td class="text-center">{{$worker->code}}</td>
                     <td class="text-center">{{worksOnSheetByDate($worker->id , $month[0] , $month[1])}}</td>
-                    <td class="text-center">{{leadByDatehUser($worker->id , $month[0] , $month[1])}}</td>
+                    <td class="text-center">{{leadByDateUser($worker->id , $month[0] , $month[1])}}</td>
                     <td class="text-center">{{earnByDateUser($worker->id , $month[0] , $month[1])}}</td>
                     <td class="text-center">
                       <div class="btn-group">

@@ -34,7 +34,7 @@
               @php
               $user = new \App\User();
               @endphp
-              <h3>{{$user->assignRole('worker')->count()}}</h3>
+              <h3>{{$user->assignRole('worker')->where('status',1)->count()}}</h3>
 
               <p>Total Workers <br>-</p>
             </div>

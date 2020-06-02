@@ -55,6 +55,7 @@
                     <th>Link</th>
                     <th>Rate</th>
                     <th>Target Lead</th>
+                    <th>Collected Lead</th>
                     <th>Total Workers</th>
                     <th>Workers</th>
                     <th>Status</th>
@@ -73,6 +74,7 @@
                     <td> <a href="{{$sheet->link}}" target="_blank">Click to open</a></td>
                     <td>{{$sheet->rate}}</td>
                     <td>{{$sheet->target}}</td>
+                    <td>{{$sheet->collected_lead}}</td>
                     <td>{{$sheet->sheetWorkers->count()}}</td>
                     <td class="text-center">
                       <button class="btn btn-sm btn-success addworker" data-id="{{$sheet->id}}"
@@ -84,7 +86,7 @@
                       <a href="{{route('sheet.done', $sheet->id)}}" class="btn btn-sm btn-info">Mark Done</a>
                       @else
                       <span>Closed</span> <br>
-                      <a href="{{route('sheet.done', $sheet->id)}}" class="btn btn-sm btn-warning">Undo Done</a>
+                      <a href="{{route('sheet.undodone', $sheet->id)}}" class="btn btn-sm btn-warning">Undo Done</a>
                       @endif
                     </td>
                     <td>{{$sheet->created_at}}</td>
@@ -140,7 +142,8 @@
               <th>Sl.</th>
               <th>Code</th>
               <th>Name</th>
-              <th>Rate</th>
+              <th class="text-center">Rate</th>
+              <th class="text-center">Collcted Leads</th>
               {{-- <th>Action</th> --}}
             </tr>
             <tbody id="workerDataView">
@@ -263,9 +266,9 @@
 function searchByName(){
     $name = $('#search_name').val();
       if($name != ""){
-        window.location.href = "{{route('sheet.index')}}/?name="+$name;
+        window.location.href = "{{route('sheet.complete')}}/?name="+$name;
       }else{
-        window.location.href = "{{route('sheet.index')}}";
+        window.location.href = "{{route('sheet.complete')}}";
       }
 }
 
@@ -297,7 +300,8 @@ function searchByName(){
                         <td>${i+1}</td>
                         <td>${$data[i].name}</td>
                         <td>${$data[i].code}</td>
-                        <td>${$data[i].rate}</td>
+                        <td class="text-center">${$data[i].rate}</td>
+                        <td class="text-center">${$data[i].count}</td>
                       </tr>`;
              $('#workerDataView').append($html);
             }
