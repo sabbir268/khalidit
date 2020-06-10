@@ -77,8 +77,8 @@
                     <td>{{$sheet->collected_lead}}</td>
                     <td>{{$sheet->sheetWorkers->count()}}</td>
                     <td class="text-center">
-                      <button class="btn btn-sm btn-success addworker" data-id="{{$sheet->id}}"
-                        data-rate="{{$sheet->rate}}">Workers</button>
+                      <button class="btn btn-sm btn-success addworker" data-name="{{$sheet->name}}"
+                        data-id="{{$sheet->id}}" data-rate="{{$sheet->rate}}">Workers</button>
                     </td>
                     <td class="text-center">
                       @if ($sheet->status == 0)
@@ -130,7 +130,8 @@
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Add workers to sheet</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Add workers to <span id="sheet_name"
+            class="text-danger font-weight-bold"></span> sheet</h5>
         <button type="button" class="close worker-modal-close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -214,8 +215,10 @@
   $('.addworker').click(function(){
     $sheetId = $(this).data('id');
     $rate = $(this).data('rate');
+    $name = $(this).data('name');
     $('#sheet_id').val($sheetId);
     $('#rate').val($rate);
+    $('#sheet_name').html($name);
     getWorker($sheetId);
     $('#addWorkersModal').modal('show');
   });
@@ -302,7 +305,15 @@ function searchByName(){
                         <td>${$data[i].code}</td>
                         <td class="text-center">${$data[i].rate}</td>
                         <td class="text-center">${$data[i].count}</td>
-                        <td><button class="btn btn-sm btn-danger" onclick="removeWorker(${$data[i].id} , ${sheetId})"><i class="fa fa-times"></i></button></td>
+                        <td>
+                        
+                        <div class="btn-group">
+                          <button class="btn btn-sm btn-danger" onclick="removeWorker(${$data[i].id} , ${sheetId})"><i
+                              class="fa fa-times"></i></button>
+                          <a class="btn btn-sm btn-info" target="_blank" href="{{url('/')}}/lead-details/${$data[i].id}"><i class="fa fa-eye"></i></a>
+                        </div>
+                        
+                        </td>
                       </tr>`;
              $('#workerDataView').append($html);
             }
@@ -311,3 +322,5 @@ function searchByName(){
   }
 </script>
 @endpush
+
+{{-- /lead-details --}}

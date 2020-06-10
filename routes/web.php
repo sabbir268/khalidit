@@ -48,3 +48,8 @@ Route::get('/leads-report', 'SheetWorkerController@report')->name('lead.report')
 Route::get('/leads-report/user/{user_id}/{month}', 'SheetWorkerController@reportDetailsUser')->name('lead.report.user')->middleware('role:admin');
 
 Route::get('/leads-report/{month}', 'SheetWorkerController@reportByMonth')->middleware('role:admin');
+
+Route::get('/lead-details/{sheetWorkerId}', 'SheetWorkerController@reporentry')->name('lead.detailsentry')->middleware('role:admin');
+
+Route::get('/lead-details/update/{leadTrackId}/{lead_count}', 'SheetWorkerController@entryUpdate')->name('lead.entryupdate')->middleware('role:admin');
+Route::get('/lead-details/delete/{leadTrackId}', 'SheetWorkerController@entryDelete')->name('lead.entrydelete')->middleware('role:admin');

@@ -144,7 +144,7 @@
               <th>Name</th>
               <th class="text-center">Rate</th>
               <th class="text-center">Collcted Leads</th>
-              {{-- <th>Action</th> --}}
+              <th>Action</th>
             </tr>
             <tbody id="workerDataView">
 
@@ -302,6 +302,11 @@ function searchByName(){
                         <td>${$data[i].code}</td>
                         <td class="text-center">${$data[i].rate}</td>
                         <td class="text-center">${$data[i].count}</td>
+                        <td class="text-center">
+                        <div class="btn-group">
+                          <a class="btn btn-sm btn-info" target="_blank" href="{{url('/')}}/lead-details/${$data[i].id}"><i class="fa fa-eye"></i></a>
+                        </div>
+                        </td>
                       </tr>`;
              $('#workerDataView').append($html);
             }

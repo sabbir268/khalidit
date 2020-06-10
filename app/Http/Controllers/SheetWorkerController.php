@@ -174,4 +174,36 @@ class SheetWorkerController extends Controller
         $user = User::find($user_id);
         return view('sheet.details', compact('sheets', 'user', 'dates'));
     }
+
+    public function reporentry($sheetWorkerId)
+    {
+        $sheetWorker = SheetWorker::find($sheetWorkerId);
+
+        return view('sheet.entry', compact('sheetWorker'));
+    }
+
+    public function entryUpdate($leadTrackId, $lead_count)
+    {
+        $leadTrack = LeadTracker::find($leadTrackId);
+        $leadTrack->lead_count = $lead_count;
+        if ($leadTrack->save()) {
+            toastr()->success('Lead entry updated successfully!');
+            return \redirect()->back();
+        } else {
+            toastr()->error('Something went wrong');
+            return \redirect()->back();
+        }
+    }
+
+    public function entryDelete($leadTrackId)
+    {
+        $leadTrack = LeadTracker::find($leadTrackId);
+        if ($leadTrack->delete()) {
+            toastr()->success('Lead entry deleted successfully!');
+            return \redirect()->back();
+        } else {
+            toastr()->error('Something went wrong');
+            return \redirect()->back();
+        }
+    }
 }

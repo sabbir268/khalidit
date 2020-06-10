@@ -50,8 +50,16 @@ class LeadTrackerController extends Controller
                 $sheet->status = 1;
                 $sheet->save();
             }
+            if (auth()->user()->hasRole('admin')) {
+                toastr()->success('Lead entry added successfully!');
+                return \redirect()->back();
+            }
             return ['status' => 'success', 'message' => 'Leads count added successfully!'];
         } else {
+            if (auth()->user()->hasRole('admin')) {
+                toastr()->success('Something went wrong!');
+                return \redirect()->back();
+            }
             return ['status' => 'error', 'message' => 'Something went wrong!'];
         }
     }
