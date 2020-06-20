@@ -44,12 +44,12 @@ Route::post('/worker-to-sheet/add', 'SheetWorkerController@store')->name('add.wo
 Route::get('/worker-to-sheet/{sheet_id}', 'SheetWorkerController@getWorkers')->name('get.worker')->middleware('role:admin');
 Route::get('/worker-to-sheet-remove/{id}', 'SheetWorkerController@removeWorkers')->name('worker.remove')->middleware('role:admin');
 
-Route::get('/leads-report', 'SheetWorkerController@report')->name('lead.report')->middleware('role:admin');
-Route::get('/leads-report/user/{user_id}/{month}', 'SheetWorkerController@reportDetailsUser')->name('lead.report.user')->middleware('role:admin');
+Route::get('/leads-report', 'SheetWorkerController@report')->name('lead.report')->middleware('auth');
+Route::get('/leads-report/user/{user_id}/{month}', 'SheetWorkerController@reportDetailsUser')->name('lead.report.user')->middleware('auth');
 
-Route::get('/leads-report/{month}', 'SheetWorkerController@reportByMonth')->middleware('role:admin');
+Route::get('/leads-report/{month}', 'SheetWorkerController@reportByMonth')->middleware('auth');
 
-Route::get('/lead-details/{sheetWorkerId}', 'SheetWorkerController@reporentry')->name('lead.detailsentry')->middleware('role:admin');
+Route::get('/lead-details/{sheetWorkerId}', 'SheetWorkerController@reporentry')->name('lead.detailsentry')->middleware('auth');
 
-Route::get('/lead-details/update/{leadTrackId}/{lead_count}', 'SheetWorkerController@entryUpdate')->name('lead.entryupdate')->middleware('role:admin');
+Route::get('/lead-details/update/{leadTrackId}/{lead_count}', 'SheetWorkerController@entryUpdate')->name('lead.entryupdate')->middleware('auth');
 Route::get('/lead-details/delete/{leadTrackId}', 'SheetWorkerController@entryDelete')->name('lead.entrydelete')->middleware('role:admin');

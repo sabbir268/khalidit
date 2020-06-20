@@ -80,7 +80,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">Date</span>
                       </div>
-                      <input type="text" class="form-control" id="mydate"  autocomplete="off">
+                      <input type="text" class="form-control" id="mydate" autocomplete="off">
                     </div>
                   </div>
                 </div>
@@ -112,6 +112,7 @@
                   @endphp
                   @foreach ($workers as $worker)
                   @if ($worker->hasRole(2))
+                  @if(auth()->user()->hasRole(1) || auth()->user()->id == $worker->id)
                   <tr>
                     <td class="text-center">{{$i}}</td>
                     <td>{{$worker->name}}</td>
@@ -127,6 +128,7 @@
                       </div>
                     </td>
                   </tr>
+                  @endif
                   @endif
                   @php
                   $i++;
