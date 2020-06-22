@@ -98,6 +98,16 @@
             </li>
           </ul>
         </li>
+
+        <li class="nav-item has-treeview ">
+          <a href="{{route('bill.index')}}" class="nav-link ">
+            <i class="nav-icon fas fa-credit-card"></i>
+            <p>
+              Billing Reports
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+        </li>
         @endif
 
         <li class="nav-item has-treeview ">

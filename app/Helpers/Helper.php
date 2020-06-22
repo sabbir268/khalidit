@@ -170,3 +170,11 @@ function leadByDateUserSheet($user_id, $sheets, $dateFrom, $dateTo)
     $sheetWorkersId = \App\SheetWorker::where('user_id', $user_id)->whereIn('sheet_id', $sheets)->whereBetween('created_at', [$dateFrom, $dateTo])->pluck('id')->toArray();
     return \App\LeadTracker::whereIn('sheet_worker_id', $sheetWorkersId)->sum('lead_count');
 }
+
+
+function checkBill($url)
+{
+    $murl = str_replace(env('APP_URL'), "", $url);
+
+    return $bill = App\Bill::where('report_url', $murl)->first();
+}

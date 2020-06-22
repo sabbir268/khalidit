@@ -186,6 +186,7 @@ class SheetWorkerController extends Controller
     {
         $leadTrack = LeadTracker::find($leadTrackId);
         $leadTrack->lead_count = $lead_count;
+        $leadTrack->earn = 0;
         if ($leadTrack->save()) {
             toastr()->success('Lead entry updated successfully!');
             return \redirect()->back();

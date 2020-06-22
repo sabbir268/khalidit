@@ -35,6 +35,8 @@ Route::post('/user/status-change', 'UserController@statusChange')->name('status.
 /** sheet routes */
 Route::resource('sheet', 'SheetController')->middleware('role:admin');
 Route::resource('lead-track', 'LeadTrackerController')->middleware('auth');
+Route::resource('bill', 'BillController')->middleware('role:admin');
+
 Route::resource('worker', 'WorkerController')->middleware('auth');
 Route::get('/sheet-complete', 'SheetController@completed')->name('sheet.complete');
 Route::get('/sheet/done/{id}', 'SheetController@markDone')->name('sheet.done');
