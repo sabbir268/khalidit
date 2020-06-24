@@ -170,7 +170,7 @@ class SheetWorkerController extends Controller
         }
         // $sheetWorkersIds = LeadTracker::whereBetween('date', $dates)->pluck('sheet_worker_id')->toArray();
         $sheet_ids = SheetWorker::where('user_id', $user_id)->whereBetween('created_at', $dates)->pluck('sheet_id')->toArray();
-        $sheets = Sheet::whereIn('id', $sheet_ids)->get();
+        $sheets = Sheet::whereIn('id', $sheet_ids)->where('status', 1)->get();
         $user = User::find($user_id);
         return view('sheet.details', compact('sheets', 'user', 'dates'));
     }

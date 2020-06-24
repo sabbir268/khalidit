@@ -65,6 +65,9 @@
                     <a class="btn btn-sm btn-info" target="_blank" href="{{$bill->report_url}}">Details</a>
                   </td>
                 </tr>
+                @php
+                  $i++    
+                @endphp
                 @endforeach
               </tbody>
             </table>

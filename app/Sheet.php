@@ -9,17 +9,15 @@ use Illuminate\Database\Eloquent\Model;
 class Sheet extends Model
 {
     protected $guarded = [];
-    public $appends = ['name', 'code', 'collected_lead'];
+    public $appends = ['collected_lead'];
 
-    public function user()
-    {
-        return $this->belongsTo('App\User');
-    }
+    
 
     public function sheetWorkers()
     {
         return $this->hasMany('App\SheetWorker');
     }
+
 
     public function getCollectedLeadAttribute()
     {

@@ -132,7 +132,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label for="">Additional Amount (<i class="fa fa-plus"></i>)</label>
-                <input type="number" step="0.01" class="form-control" name="extra_addition">
+                <input type="number" step="0.01" class="form-control" value="0.00" name="extra_addition">
               </div>
               <div class="form-group">
                 <label for="">Comment for additional amount</label>
@@ -140,7 +140,7 @@
               </div>
               <div class="form-group">
                 <label for="">Deduction (<i class="fa fa-minus"></i>)</label>
-                <input type="number" step="0.01" class="form-control" name="extra_addition">
+                <input type="number" step="0.01" value="0.00" class="form-control" name="deduction">
               </div>
               <div class="form-group">
                 <label for="">Deduction Comment</label>
@@ -150,7 +150,7 @@
 
               <div class="form-group">
                 <label for="">Select Month</label>
-                <select name="month" class="form-control">
+                <select name="month" class="form-control" required>
                   <option value="">Select..</option>
                   <option value="January">
                     January</option>

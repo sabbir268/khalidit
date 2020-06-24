@@ -13,6 +13,7 @@
 
 // use Carbon\Carbon;
 
+use Illuminate\Support\Facades\Artisan;
 
 Route::get('/', function () {
     return view('welcome');
@@ -55,3 +56,8 @@ Route::get('/lead-details/{sheetWorkerId}', 'SheetWorkerController@reporentry')-
 
 Route::get('/lead-details/update/{leadTrackId}/{lead_count}', 'SheetWorkerController@entryUpdate')->name('lead.entryupdate')->middleware('auth');
 Route::get('/lead-details/delete/{leadTrackId}', 'SheetWorkerController@entryDelete')->name('lead.entrydelete')->middleware('role:admin');
+
+
+Route::get('/migrate', function () {
+    Artisan::call('migrate');
+});
