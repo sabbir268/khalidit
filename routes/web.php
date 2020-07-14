@@ -30,13 +30,16 @@ Route::post('/register-member', 'WorkerController@store')->name('member.register
 
 /** Worker routes */
 Route::resource('user', 'UserController')->middleware('role:admin');
+Route::get('/varify-email/{encryptId}/{email}', 'UserController@varifyEmail');
 Route::get('user-new', 'UserController@new')->name('user.new')->middleware('role:admin');
+Route::get('user-sheet-runnig/{user_id}', 'UserController@sheetRunnig')->name('user.sheetrunnig')->middleware('role:admin');
 Route::post('/user/status-change', 'UserController@statusChange')->name('status.change')->middleware('role:admin');
 
 /** sheet routes */
 Route::resource('sheet', 'SheetController')->middleware('role:admin');
 Route::resource('lead-track', 'LeadTrackerController')->middleware('auth');
-Route::resource('bill', 'BillController')->middleware('role:admin');
+Route::resource('bill', 'BillController')->except('show', 'edit', 'update')->middleware('role:admin');
+Route::get('bill/{month}', 'BillController@filter')->middleware('role:admin');
 
 Route::resource('worker', 'WorkerController')->middleware('auth');
 Route::get('/sheet-complete', 'SheetController@completed')->name('sheet.complete');

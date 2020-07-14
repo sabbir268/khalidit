@@ -69,7 +69,8 @@
             <div class="inner">
               <h3>{{totalLeadCM()}}</h3>
 
-              <p>Current Month Lead Generated <br> {{date("d M'Y",strtotime(month(date('m'))[0]))}} - {{date("d M'Y",strtotime(month(date('m'))[1]))}}</p>
+              <p>Current Month Lead Generated <br> {{date("d M'Y",strtotime(month(date('m'))[0]))}} -
+                {{date("d M'Y",strtotime(month(date('m'))[1]))}}</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
@@ -84,7 +85,8 @@
           <div class="small-box bg-danger">
             <div class="inner">
               <h3>Tk {{totalEarnCM()}} <small style="font-size: 10px">(By Worker)</small></h3>
-              <p>Current Month Total Earned <br> {{date("d M'Y",strtotime(month(date('m'))[0]))}} - {{date("d M'Y",strtotime(month(date('m'))[1]))}}</p>
+              <p>Current Month Total Earned <br> {{date("d M'Y",strtotime(month(date('m'))[0]))}} -
+                {{date("d M'Y",strtotime(month(date('m'))[1]))}}</p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
@@ -127,11 +129,17 @@
 
       @if(auth()->user()->hasRole('worker'))
       @if (auth()->user()->status == 0)
+      @if(auth()->user()->email_verified_at)
       <div class="alert alert-warning text-center" role="alert">
         Your account is not approved yet. Please wait for approval and return back again! <br>
         <a href="{{route('worker.show', auth()->user()->worker->id)}}">View</a> or <a
           href="{{route('worker.edit', auth()->user()->worker->id)}}">Edit</a> your submission
       </div>
+      @else
+      <div class="alert alert-danger text-center" role="alert">
+        Your email is not verified! Please check your email and verify. <br>
+      </div>
+      @endif
       @else
       <div class="row">
         <div class="col-lg-3 col-6">
@@ -140,7 +148,8 @@
             <div class="inner">
               <h3>Tk {{earnByMonthUser(auth()->user()->id , date('m'))}}/-</h3>
 
-              <p>Current Month Eearning <br> {{date("d M'Y",strtotime(month(date('m'))[0]))}} - {{date("d M'Y",strtotime(month(date('m'))[1]))}}</p>
+              <p>Current Month Eearning <br> {{date("d M'Y",strtotime(month(date('m'))[0]))}} -
+                {{date("d M'Y",strtotime(month(date('m'))[1]))}}</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
@@ -154,7 +163,8 @@
           <div class="small-box bg-success">
             <div class="inner">
               <h3>{{leadByMonthUser(auth()->user()->id , date('m'))}}<sup style="font-size: 20px"></sup></h3>
-            <p>Current Month Lead Generated  <br> {{date("d M'Y",strtotime(month(date('m'))[0]))}} - {{date("d M'Y",strtotime(month(date('m'))[1]))}}</p>
+              <p>Current Month Lead Generated <br> {{date("d M'Y",strtotime(month(date('m'))[0]))}} -
+                {{date("d M'Y",strtotime(month(date('m'))[1]))}}</p>
             </div>
             <div class="icon">
               <i class="ion ion-stats-bars"></i>

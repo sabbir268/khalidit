@@ -49,7 +49,7 @@
             <li class="nav-item">
               <a href="{{route('user.index')}}" class="nav-link {{ (request()->is('user')) ? 'active' : '' }}">
                 <i class="fas fa-users nav-icon"></i>
-                <p>Workers</p>
+                <p>Team Members</p>
               </a>
             </li>
             <li class="nav-item">

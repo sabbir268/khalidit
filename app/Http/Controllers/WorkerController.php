@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\EmailVarify;
 use App\User;
 use App\Worker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class WorkerController extends Controller
 {
@@ -69,6 +71,7 @@ class WorkerController extends Controller
             $user->assignRole(2);
             $data['user_id'] = $user->id;
             Worker::create($data);
+            Mail::to($user->email)->send(new EmailVarify($user));
             $credentials = $request->only('email', 'password');
             if (Auth::attempt($credentials)) {
                 return redirect()->route('home');

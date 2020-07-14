@@ -193,7 +193,14 @@ function leadByDateUserSheet($user_id, $sheets, $dateFrom, $dateTo)
 
 function checkBill($url)
 {
-    $murl = str_replace(env('APP_URL'), "", $url);
+    //return $murl = str_replace(env('APP_URL'), "", $url);
 
-    return $bill = App\Bill::where('report_url', $murl)->first();
+    return $bill = App\Bill::where('report_url', $url)->first();
+}
+
+function sheetWorking($user_id)
+{
+    return $sheetWorkersId = \App\SheetWorker::where('user_id', $user_id)->whereHas('sheet', function ($q) {
+        $q->where('status', 0);
+    })->count();
 }

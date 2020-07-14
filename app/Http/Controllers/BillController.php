@@ -14,7 +14,7 @@ class BillController extends Controller
      */
     public function index()
     {
-        $bills = Bill::paginate(20);
+        $bills = Bill::orderBy('id', 'DESC')->paginate(20);
         return view('bill.index', \compact('bills'));
     }
 
@@ -55,6 +55,13 @@ class BillController extends Controller
         }
 
         return redirect()->back();
+    }
+
+
+    public function filter($month)
+    {
+        $bills = Bill::where('month', $month)->orderBy('id', 'DESC')->paginate(20);
+        return view('bill.index', \compact('bills', 'month'));
     }
 
     /**

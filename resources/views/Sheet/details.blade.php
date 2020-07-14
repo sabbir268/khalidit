@@ -29,7 +29,20 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header">
-            <h4 class="text-center">{{$user->name}}</h4>
+            <div class="row">
+              <div class="col-md-3 pt-5 text-left">
+                <h4 class="text-left"><b>Date:</b> {{date('d/m/Y',time())}}</h4>
+              </div>
+              <div class="col-md-6 d-flex justify-content-center">
+                <img src="https://khalidit.com/wp-content/uploads/2020/05/khalidit.png" alt="" style="
+                  width: 50%;
+                  height: 77%;
+              ">
+              </div>
+              <div class="col-md-3 pt-5 text-left">
+                <h4 class="text-right"><b>Billing Month:</b>{{checkBill(url()->current())->month}}</h4>
+              </div>
+            </div>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
@@ -97,9 +110,23 @@
                   @endif
                 </tbody>
               </table>
+
               @if(!checkBill(url()->current()))
               <button class="btn btn-success" data-toggle="modal" data-target="#geneRateBillModal">Generate
                 Bill</button>
+              @else
+              <div class="w-100 mb-5 pb-5"></div>
+              <div class="col-md-6 float-left">
+                <div class="col-md-8 text-center" style="border-top: 1px solid #343a40;">
+                  <p>{{$user->name}}</p>
+                </div>
+              </div>
+              <div class="col-md-6 float-right text-right">
+                <div class="col-md-8 float-right text-center" style="border-top: 1px solid #343a40;">
+                  <p>Khalid Hasan</p>
+                </div>
+              </div>
+
               @endif
             </div>
           </div>

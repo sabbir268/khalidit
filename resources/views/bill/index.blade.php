@@ -29,7 +29,38 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header">
-
+            <div class="input-group mb-3 col-md-6">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Month</span>
+              </div>
+              <select name="month" class="form-control" id="month">
+                <option value="">Select Month</option>
+                <option value="January" {{collect(request()->segments())->last() == "January" ? 'selected' : ''}}>
+                  January</option>
+                <option value="February" {{collect(request()->segments())->last() == "February" ? 'selected' : ''}}>
+                  February</option>
+                <option value="March" {{collect(request()->segments())->last() == "March" ? 'selected' : ''}}>
+                  March</option>
+                <option value="April" {{collect(request()->segments())->last() == "April" ? 'selected' : ''}}>
+                  April</option>
+                <option value="May" {{collect(request()->segments())->last() == "May" ? 'selected' : ''}}>
+                  May</option>
+                <option value="June" {{collect(request()->segments())->last() == "June"? 'selected' : ''}}>
+                  June</option>
+                <option value="July" {{collect(request()->segments())->last() == "July" ? 'selected' : ''}}>
+                  July</option>
+                <option value="August" {{collect(request()->segments())->last() == "August" ? 'selected' : ''}}>
+                  August</option>
+                <option value="September" {{collect(request()->segments())->last() == "September" ? 'selected' : ''}}>
+                  September</option>
+                <option value="October" {{collect(request()->segments())->last() == "October" ? 'selected' : ''}}>
+                  October</option>
+                <option value="November" {{collect(request()->segments())->last() == "November" ? 'selected' : ''}}>
+                  November</option>
+                <option value="December" {{collect(request()->segments())->last() == "December"  ? 'selected' : ''}}>
+                  December</option>
+              </select>
+            </div>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
@@ -66,7 +97,7 @@
                   </td>
                 </tr>
                 @php
-                  $i++    
+                $i++
                 @endphp
                 @endforeach
               </tbody>
@@ -108,6 +139,18 @@
 
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
+<script>
+  $(document).ready(function(){
+        $('#month').change(function(){
+             console.log(this.value);
+             if(!this.value == ''){
+                window.location.href = '{{url('/')}}/bill/'+this.value
+             }else{
+               window.location.href = '{{url('/')}}/bill';
+             }
+        });
+    });
+</script>
 @endpush
 
 {{-- /lead-details --}}

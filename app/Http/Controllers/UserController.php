@@ -64,10 +64,34 @@ class UserController extends Controller
                 $user->assignRole(2);
             }
             toastr()->success('User created');
-            return \redirect()->back();
+            return redirect()->back();
         } else {
             toastr()->error('Something went wrong');
-            return \redirect()->back();
+            return redirect()->back();
+        }
+    }
+
+    public function varifyEmail($encryptId, $email)
+    {
+        $user = User::where('email', $email)->first();
+        if ($user) {
+            if ($user->email_verified_at) {
+                toastr()->info('Your email is already verified!');
+                return view('home');
+            }
+            if (md5($user->id) == $encryptId) {
+                $user->email_verified_at = date('Y-m-d h:m:s');
+                if ($user->save()) {
+                    toastr()->success('Your email is verified successfully!');
+                    return view('home');
+                }
+            } else {
+                toastr()->error('Email is verification failed!');
+                return view('home');
+            }
+        } else {
+            toastr()->error('Email is verification failed!');
+            return view('home');
         }
     }
 
@@ -77,9 +101,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function sheetRunnig($user_id)
     {
-        //
+        $user = User::find($user_id);
+        return view('user.workingsheet', compact('user'));
     }
 
     /**

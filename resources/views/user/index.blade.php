@@ -104,7 +104,8 @@
                   <th>Code</th>
                   <th>Name</th>
                   <th>Email</th>
-                  <th>Created at</th>
+                  <th>Email Verified at</th>
+                  <th>Running Sheet</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
@@ -119,7 +120,9 @@
                   <td>{{$worker->code}}</td>
                   <td>{{$worker->name}}</td>
                   <td>{{$worker->email}}</td>
-                  <td>{{$worker->created_at}}</td>
+                  <td>{{$worker->email_verified_at ? $worker->email_verified_at : 'Not Verified'}}</td>
+                  <td class="text-center"> <a
+                      href="{{route('user.sheetrunnig', $worker->id)}}">{{sheetWorking($worker->id)}}</a></td>
                   <th>
                     <label class="switch">
                       <input type="checkbox" class="statusControl" data-code="{{$worker->code}}"
@@ -134,8 +137,9 @@
                       <a href="javascript:void(0)"
                         onclick="event.preventDefault();if(confirm('Are you sure you want to delete this item?')) document.getElementById('delete-worker-{{$worker->worker->id}}').submit();"
                         class="btn btn-sm btn-danger">Delete</a>
-                      <form id="delete-worker-{{$worker->worker->id}}" action="{{ route('worker.destroy', $worker->worker->id) }}"
-                        method="POST" style="display: block;">
+                      <form id="delete-worker-{{$worker->worker->id}}"
+                        action="{{ route('worker.destroy', $worker->worker->id) }}" method="POST"
+                        style="display: block;">
                         @method('delete')
                         @csrf
                       </form>
