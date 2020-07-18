@@ -14,6 +14,8 @@
 // use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\EmailVarify;
 
 Route::get('/', function () {
     return view('welcome');
@@ -63,4 +65,9 @@ Route::get('/lead-details/delete/{leadTrackId}', 'SheetWorkerController@entryDel
 
 Route::get('/migrate', function () {
     Artisan::call('migrate');
+});
+
+Route::get('/test', function () {
+    $user = \App\User::find();
+    Mail::to($user->email)->send(new EmailVarify($user));
 });

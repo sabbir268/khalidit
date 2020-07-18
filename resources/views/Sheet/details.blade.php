@@ -31,7 +31,9 @@
           <div class="card-header">
             <div class="row">
               <div class="col-md-3 pt-5 text-left">
+                @if (checkBill(url()->current()))
                 <h4 class="text-left"><b>Date:</b> {{date('d/m/Y',time())}}</h4>
+                @endif
               </div>
               <div class="col-md-6 d-flex justify-content-center">
                 <img src="https://khalidit.com/wp-content/uploads/2020/05/khalidit.png" alt="" style="
@@ -39,8 +41,11 @@
                   height: 77%;
               ">
               </div>
+
               <div class="col-md-3 pt-5 text-left">
+                @if (checkBill(url()->current()))
                 <h4 class="text-right"><b>Billing Month:</b>{{checkBill(url()->current())->month}}</h4>
+                @endif
               </div>
             </div>
           </div>

@@ -15,7 +15,6 @@ return [
     |            "postmark", "log", "array"
     |
     */
-
     'driver' => env('MAIL_DRIVER', 'smtp'),
 
     /*
@@ -56,7 +55,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'app@khalidit.com'),
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
@@ -84,9 +83,9 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME'),
+    'username' => "postmaster@ml.khalidit.com",
 
-    'password' => env('MAIL_PASSWORD'),
+    'password' => "c20f9a388c808ef1062f81aa1825e354-a83a87a9-3e342b41",
 
     /*
     |--------------------------------------------------------------------------
