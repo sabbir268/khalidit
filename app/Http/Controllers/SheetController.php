@@ -150,7 +150,7 @@ class SheetController extends Controller
             if ($sw->update(['created_at' => now()])) {
                 toastr()->success('Sheet mark as done successfully!');
             } else {
-                toastr()->error('Faild');
+                toastr()->error('Success.. But something went wrong! Call Developer..!!');
             }
 
             return \redirect()->back();
