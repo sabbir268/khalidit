@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Sheet;
+use App\SheetWorker;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -144,7 +145,14 @@ class SheetController extends Controller
         $sheet = Sheet::find($id);
         $sheet->status = 1;
         if ($sheet->save()) {
-            toastr()->success('Sheet mark as done successfully!');
+            // SheetWorker
+            $sw = SheetWorker::where('sheet_id', $sheet->id);
+            if ($sw->update(['created_at' => now()])) {
+                toastr()->success('Sheet mark as done successfully!');
+            } else {
+                toastr()->error('Faild');
+            }
+
             return \redirect()->back();
         } else {
             toastr()->error('Something went wrong');
